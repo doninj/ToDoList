@@ -1,4 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
+import {useState} from "react";
+
 import React from 'react';
 import { StyleSheet, Text, Button,Image,TouchableOpacity,View, TextInput } from 'react-native';
 
@@ -22,11 +24,28 @@ const Buttons=({route,title,description,image})=>{
 }
 const AddTasks=({route,title,description,image})=>{
      
+
+  const [tasks, settasks] = useState([]);
+  const [taskName,settaskName] = useState("tache 1");
   const navigation=useNavigation();
+
+const returnState=()=>{
+
+  settasks([
+    ...tasks,
+    {
+      id:tasks.length,
+      name:taskName
+    }
+  ]);
+  return console.log(tasks);
+  
+}
+
   return (
   <View style={styles.container}>
       <View style={styles.SectionStyleAdd}>
-          <TouchableOpacity style={{flexDirection:"row",justifyContent:"center",alignItems:"center",width:200}}onPress={() => navigation.openDrawer()} >
+          <TouchableOpacity    onPress={returnState}    style={{flexDirection:"row",justifyContent:"center",alignItems:"center",width:200}} >
           <Image source={require('./Icon/add.png')} style={styles.ImageStyle} />
       <Text> Créer une tâche</Text>
       </TouchableOpacity>
@@ -118,7 +137,7 @@ const styles = StyleSheet.create({
   
 
 const  HomeScreen=(navigation)=> {
-  
+
     return (
       <View style={{ flex: 1, marginTop:50}}>
         <View style={{flexDirection:"row"  }}>
