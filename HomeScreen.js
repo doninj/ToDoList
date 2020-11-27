@@ -36,7 +36,18 @@ const AddTasks=({route,title,description,image})=>{
     );
 }
 
+const Task =() =>{
+  return (
+    <View style={styles.task}>
+      <View style={{ flex:1,flexDirection:"row",justifyContent:'space-between',marginTop:15,}}>
+        <Text style={styles.TextTasks }> Tâche 1</Text>
+        <TouchableOpacity style={ styles.priority}> 
+        </TouchableOpacity>
+        </View>
+    </View>
+      );
 
+}
 const styles = StyleSheet.create({
 
     container: {
@@ -45,7 +56,25 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       margin: 10
     },
-    
+    task:{
+      borderBottomWidth:2,
+      borderBottomColor:"grey",
+      height:50,
+      flexDirection:"row"
+    },
+    TextTasks:{
+      fontSize:20
+    },
+    priority:{
+      backgroundColor:"blue",
+      width:15,
+      height:15,
+      alignSelf: 'center',
+      borderRadius:50,
+      marginRight:30
+      
+
+    },
     SectionStyle: {
       flexDirection: 'row',
       justifyContent: 'center',
@@ -80,19 +109,30 @@ const styles = StyleSheet.create({
       resizeMode : 'stretch',
       alignItems: 'center'
   },
+  title:{
+    fontSize:35,
+    
+  }
   
   });
   
 
 const  HomeScreen=(navigation)=> {
+  
     return (
-      <View style={{ flex: 1, alignItems: 'center',marginTop:50}}>
+      <View style={{ flex: 1, marginTop:50}}>
         <View style={{flexDirection:"row"  }}>
-        <Buttons 
-          title=" Allez à Details"
-          route="Details"
-          description="Je viens de la page Home"
-        />
+        <Buttons />
+        </View>
+        <View>
+           <Text style={ styles.title }> Tâche à faire:</Text>
+        </View>
+        <View style={{ marginTop:15 }}>
+        <Task></Task>
+        <Task></Task>
+        <Task></Task>
+        <Task></Task>
+        <Task></Task>
         </View>
         <View style={{ position:"absolute",bottom:0,right:0,marginBottom:30,marginRight:25}}>
         <AddTasks 
