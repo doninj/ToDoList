@@ -8,16 +8,15 @@ import styles from '../Style'
 
 const Task =(props) =>{
     return (
-  
       <View style={styles.task}>
         <View style={{ flex:1,flexDirection:"row",justifyContent:'space-between',marginTop:15,}}>
           <Text style={styles.TextTasks }> {props.text}</Text>
-          <TouchableOpacity style={ styles.priority}> 
-          </TouchableOpacity>
+          <TouchableOpacity onPress={props.deleteitem}>
+          <Text style={{ color: 'red' }}>Supprimer</Text>
+        </TouchableOpacity>
           </View>
       </View>
         );
-  
   }
 
   export default Task;

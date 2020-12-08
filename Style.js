@@ -1,4 +1,5 @@
 import { StyleSheet} from 'react-native';
+import { withTheme } from 'react-native-elements';
 
 
 const styles = StyleSheet.create({
@@ -64,7 +65,8 @@ const styles = StyleSheet.create({
   },
   title:{
     fontSize:35,
-  }
+	},
+
   
   });
   export default styles;
