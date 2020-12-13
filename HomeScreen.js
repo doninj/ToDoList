@@ -10,6 +10,7 @@ import { Dimensions } from 'react-native';
 import AddTasks from './HomeScreenComponent/Addtask';
 import Tasks from './HomeScreenComponent/Task';
 import ModalScreen from './ModalTester';
+import Task from './HomeScreenComponent/Task';
 
 const BLUE= "#7384f0";
 const LIGHT_GREY="#428AF8"
@@ -26,39 +27,35 @@ const Buttons = (props)=>{
 		</View>
   )
 }
+
 export default function HommeScreen(props) {
 	const [isFocused, setisFocused] = useState(false);
-  const [tasks, settasks] = useState([]);
+  const [list, setList] = useState([]);
 	const [taskName,settaskName] = useState("");
 	const [taskDescription, settaskDescription] = useState("");
 	const [showModal, setShowModal] = useState(false);
 
-	const	deleteItem = (index) => {
-		console.log("salut")
-		const tmp= tasks.splice(index,1)
-		console.log(tmp)
+  const addItem = () => {
+
+		
+    const tmp = [...list];
+    tmp.push(taskName);
+		setList(tmp);
+		settaskName('');
+		console.log(list)
 	};
-	const addItem = event => 
-		{
-		settasks([
-			...tasks,
-			{
-				id: tasks.length,
-				name: taskName,
-				description:taskDescription,
-			}
-		]);
-		settaskName("");
-		settaskDescription("");
-		console.log(tasks)
-	};
-	
 	const handlefocus = (event) =>{
 		setisFocused({isFocused:true})
 		if(props.onFocus){
 			props.onFocus(event);
 	}
 }
+const deleteItem = (index) => {
+	const tmp = [...list];
+	tmp.splice(index, 1);
+	setList(tmp);
+};
+
 	const handlebutton=()=>{
 		setShowModal(!showModal);
 }
@@ -76,7 +73,7 @@ export default function HommeScreen(props) {
 				underlineColorAndroid={"#D3D3D3"} 
 				placeholder="Nom tâches:" 
 				value={taskName}
-				onChangeText={tasks => settaskName(tasks)} >
+				onChangeText={taskName=>settaskName(taskName)} >
 			</TextInput >
 
 			<TextInput   
@@ -85,7 +82,7 @@ export default function HommeScreen(props) {
 			selectionColor={isFocused ? BLUE : LIGHT_GREY} 
 			underlineColorAndroid={"#D3D3D3"} 
 			placeholder="Description de la tâches:" 
-			onChangeText= {taskDescription => settaskDescription(taskDescription)} 
+			onChangeText= {taskDescription=>settaskDescription(taskDescription)} 
 			>
 			</TextInput >
 			<TouchableOpacity style={{height:30,width:100,borderColor:BLUE,borderWidth:2,borderRadius:50,justifyContent:"center"}}
@@ -101,13 +98,20 @@ export default function HommeScreen(props) {
       <View>
         <Text style={ styles.title }> Tâche à faire:</Text>
       </View>
-			{tasks.length ? (
+			{list.length ? (
         <ScrollView>
           <View>
-            {tasks.map((element,index) => {
-							console.log("element: "+element.name,index)
-              return <Tasks  deleteitem={deleteItem(index)} key={element.id} text={element.name}  />;
-            })}
+					{list.map((item,index) => (
+					
+						<View>
+							{console.log(item)}
+      <Text key={index} >{item}</Text>
+			<TouchableOpacity onPress={() => deleteItem(index)}>
+          <Text style={{ color: 'red' }}>Supprimer</Text>
+        </TouchableOpacity>
+				</View>
+    ))}
+      
           </View>
         </ScrollView>
         ) : (
@@ -126,3 +130,4 @@ export default function HommeScreen(props) {
     
   );
 }
+
