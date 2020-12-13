@@ -11,6 +11,8 @@ import AddTasks from './HomeScreenComponent/Addtask';
 import Tasks from './HomeScreenComponent/Task';
 import ModalScreen from './ModalTester';
 import Task from './HomeScreenComponent/Task';
+import { MaterialIcons } from '@expo/vector-icons'; 
+
 
 const BLUE= "#7384f0";
 const LIGHT_GREY="#428AF8"
@@ -33,15 +35,18 @@ export default function HommeScreen(props) {
   const [list, setList] = useState([]);
 	const [taskName,settaskName] = useState("");
 	const [taskDescription, settaskDescription] = useState("");
+	const [taskPriority, settaskPriority] = useState("");
+	const [taskstatus, settaskstatus] = useState("");
+
 	const [showModal, setShowModal] = useState(false);
 
   const addItem = () => {
 
-		
-    const tmp = [...list];
-    tmp.push(taskName);
+	 var obj={taskName,taskDescription,taskPriority,taskstatus};
+    const tmp = [...list,obj];
 		setList(tmp);
 		settaskName('');
+		settaskDescription('')
 		console.log(list)
 	};
 	const handlefocus = (event) =>{
@@ -73,9 +78,9 @@ const deleteItem = (index) => {
 				underlineColorAndroid={"#D3D3D3"} 
 				placeholder="Nom tâches:" 
 				value={taskName}
-				onChangeText={taskName=>settaskName(taskName)} >
-			</TextInput >
-
+				onChangeText={taskName=>settaskName(taskName)} 
+				>
+			</TextInput>
 			<TextInput   
 			style={{height: 40,width:300}}
 			value={taskDescription}
@@ -84,8 +89,21 @@ const deleteItem = (index) => {
 			placeholder="Description de la tâches:" 
 			onChangeText= {taskDescription=>settaskDescription(taskDescription)} 
 			>
-			</TextInput >
-			<TouchableOpacity style={{height:30,width:100,borderColor:BLUE,borderWidth:2,borderRadius:50,justifyContent:"center"}}
+			</TextInput>
+
+					<Text>Priorité:</Text>
+				<View style={{flex:1,flexDirection:"row"}}>
+			<TouchableOpacity >
+			<MaterialIcons name="flag" size={36} color="blue" />
+					</TouchableOpacity>
+					<TouchableOpacity >
+			<MaterialIcons name="flag" size={36} color="orange" />
+					</TouchableOpacity>
+					<TouchableOpacity >
+			<MaterialIcons name="flag" size={36} color="red" />
+					</TouchableOpacity>
+					</View>
+					<TouchableOpacity style={{height:30,width:100,borderColor:BLUE,borderWidth:2,borderRadius:50,justifyContent:"center"}}
 				onPress={()=>addItem()}>
 				<Text> Créer la tâche</Text>
 			</TouchableOpacity>
@@ -102,10 +120,9 @@ const deleteItem = (index) => {
         <ScrollView>
           <View>
 					{list.map((item,index) => (
-					
 						<View>
 							{console.log(item)}
-      <Text key={index} >{item}</Text>
+      <Task key={index} text={item.taskName}></Task>
 			<TouchableOpacity onPress={() => deleteItem(index)}>
           <Text style={{ color: 'red' }}>Supprimer</Text>
         </TouchableOpacity>
