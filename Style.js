@@ -54,6 +54,13 @@ const styles = StyleSheet.create({
     elevation:6,
     shadowColor:"black"
 },
+checkboxContainer: {
+	flexDirection: "row",
+	marginBottom: 20,
+},
+checkbox: {
+	alignSelf: "center",
+},
   
   ImageStyle: {
       padding: 10,
