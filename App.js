@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
+import { Provider } from "mobx-react";
 import React from 'react';
 import { StyleSheet, Text,Button, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,6 +11,8 @@ import {
 } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './HomeScreen';
+import FinishTaskScreen from './FinishTaskScreen';
+import {ListStore} from './store'
 
 
 
@@ -20,14 +23,6 @@ function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
-      <DrawerItem
-        label="Close drawer"
-        onPress={() => props.navigation.closeDrawer()}
-      />
-      <DrawerItem
-        label="Toggle drawer"
-        onPress={() => props.navigation.toggleDrawer()}
-      />
     </DrawerContentScrollView>
   );
 }
@@ -36,15 +31,21 @@ const Drawer = createDrawerNavigator();
 function MyDrawer() {
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="Feed" component={HomeScreen} />
+      <Drawer.Screen name="Home" component={HomeScreen} />
+			<Drawer.Screen name="FinishTask" component={FinishTaskScreen} />
+
     </Drawer.Navigator>
   );
 }
 export default function App() {
+	const stores={ListStore}
+
   return (
+		<Provider {...stores}>
     <NavigationContainer style={{}}>
     <MyDrawer />
   </NavigationContainer>
+	</Provider>
   );
 }
 

@@ -11,7 +11,11 @@ import AddTasks from './HomeScreenComponent/Addtask';
 import Tasks from './HomeScreenComponent/Task';
 import Task from './HomeScreenComponent/Task';
 import { MaterialIcons } from '@expo/vector-icons'; 
-
+import { List } from '@material-ui/core';
+import {ListStore} from './TaskStore'
+import {toJS} from 'mobx';
+import ModalPerso from './Modal'
+import { AppState } from 'react-native';
 
 const BLUE= "#7384f0";
 const LIGHT_GREY="#428AF8"
@@ -29,119 +33,69 @@ const Buttons = (props)=>{
   )
 }
 
-export default function HommeScreen(props) {
-	const [isFocused, setisFocused] = useState(false);
+export default function FinishTaskScreen({ navigation, route }) {
+
   const [list, setList] = useState([]);
 	const [taskName,settaskName] = useState("");
 	const [taskDescription, settaskDescription] = useState("");
 	const [taskPriority, settaskPriority] = useState("");
 	const [taskstatus, settaskstatus] = useState("en cours");
 	const [isChecked, setisChecked] = useState(true);
-
 	const [showModal, setShowModal] = useState(false);
 
-  const addItem = () => {
+	const [updateVal, setUpdateVal] = useState(false);
+  const forceUpdate = newState => {
+    if (newState === 'active')
+      setUpdateVal(!updateVal); // forces a rerender
+  }
+  React.useEffect(() => {
+    setTimeout(() => {
+			setUpdateVal(!updateVal);
+			console.log("dsqdqsd") // forces a rerender
+    }, 3000);
+  }, [updateVal]);
 
-	 var obj={taskName,taskDescription,taskPriority,taskstatus,isChecked};
-    const tmp = [...list,obj];
-		setList(tmp);
-		settaskName('');
-		settaskDescription('')
-		console.log(list)
-	};
-	const handlefocus = (event) =>{
-		setisFocused({isFocused:true})
-		if(props.onFocus){
-			props.onFocus(event);
-	}
-}
-const deleteItem = (index) => {
-	const tmp = [...list];
-	tmp.splice(index, 1);
+function deletetask(todo) {
+	ListStore.removeTodo(todo)
+	var obj=ListStore.getList
+	const tmp = [...list,obj];
 	setList(tmp);
-};
-const handlePriority=()=>{
-
 }
-	const handlebutton=()=>{
-		setShowModal(!showModal);
+ function add() {
+	ListStore.addTodo(taskName,taskDescription,taskPriority,taskstatus)
+	var obj=ListStore.getList
+	console.log(obj)
+	const tmp = [...list,obj];
+		setList(tmp);
+	console.log(tmp)
+	if(ListStore.list.length==0){
+		console.log("rien")
+	}else{
+	console.log("il y a quelque chose dans la liste")
+	}
+	settaskName('')
+	settaskPriority('')
+	settaskDescription('')
 }
-  return (
+const handlebutton=()=>{
+	setShowModal(!showModal);
+}
+console.log("salulut"+ ListStore.list.length)
+return (
 <View style={{ flex:1 }}>
-	<Modal 
-		onBackButtonPress={() =>handlebutton()}
-		isVisible={showModal}
-		transparent={true}
-  >
-		<View style={{ backgroundColor:"white",height:400,marginTop:300,padding:40,borderRadius:50}}>
-			<TextInput   
-				style={{height: 40,width:300}}	
-				selectionColor={isFocused ? BLUE : LIGHT_GREY} 
-				underlineColorAndroid={"#D3D3D3"} 
-				placeholder="Nom tâches:" 
-				value={taskName}
-				onChangeText={taskName=>settaskName(taskName)} 
-				>
-			</TextInput>
-			<TextInput   
-			style={{height: 40,width:300}}
-			value={taskDescription}
-			selectionColor={isFocused ? BLUE : LIGHT_GREY} 
-			underlineColorAndroid={"#D3D3D3"} 
-			placeholder="Description de la tâches:" 
-			onChangeText= {taskDescription=>settaskDescription(taskDescription)} 
-			>
-			</TextInput>
-					<Text>Priorité:</Text>
-				<View style={{flex:1,flexDirection:"row"}}>
-			<TouchableOpacity  onPress={()=>settaskPriority("faible")}>
-			<MaterialIcons name="flag" size={36} color="blue" />
-					</TouchableOpacity>
-					<TouchableOpacity onPress={()=>settaskPriority("moyen")} >
-			<MaterialIcons name="flag" size={36} color="orange" />
-					</TouchableOpacity>
-					<TouchableOpacity  onPress={()=>settaskPriority("haute")} >
-			<MaterialIcons name="flag" size={36} color="red" />
-					</TouchableOpacity >
-					</View>
-					<TouchableOpacity style={{height:30,width:100,borderColor:BLUE,borderWidth:2,borderRadius:50,justifyContent:"center"}}
-				onPress={()=>addItem()}>
-				<Text> Créer la tâche</Text>
-			</TouchableOpacity>
-		</View>
-	</Modal>
-    <View style={{ flex: 1, marginTop:50}}>
-      <View style={{flexDirection:"row"  }}>
+<ModalPerso showModal={showModal} handlebutton={handlebutton} taskName={taskName} settaskName={settaskName} taskDescription={taskDescription} settaskDescription={settaskDescription} settaskPriority={settaskPriority} addItem={add}  ></ModalPerso>
+<View style={{ flex: 1, marginTop:50}}>
+<View style={{flexDirection:"row"  }}>
         <SearchBar/>
       </View>
-      <View>
-        <Text style={ styles.title }> Tâche à faire:</Text>
+			<View>
+        <Text style={ styles.title }> Tâche Terminée:</Text>
       </View>
-			{list.length ? (
-        <ScrollView>
-          <View>
-					{list.map((item,index) => (
-						<View>
-							{console.log(item)}
-      <Task ischecked={isChecked}  setischecked={()=>setisChecked(!!isChecked)} ondelete={()=>deleteItem(index)} key={index} text={item.taskName}></Task>
-				</View>
-    ))}
-      
-          </View>
-        </ScrollView>
-        ) : (
-          <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-            <Text>Aucune Tâches</Text>
-          </View>
-        )}
-        <View style={{ marginTop:15 }}>
-        </View>
-        <ScrollView style={{ position:"absolute",bottom:0,right:0,marginBottom:30,marginRight:25}}>
-        <Buttons press={handlebutton}></Buttons>
-        </ScrollView>
-    </View>
+	{ ListStore.getTaskFinished.slice(0).reverse().map((todo,index)=>{
+		return <Task key={index} ondelete={()=>deletetask(todo)}  text={todo.title}></Task>
+	})}
 </View>
-    
+</View>
   );
 }
 

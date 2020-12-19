@@ -14,7 +14,9 @@ const styles = StyleSheet.create({
       borderBottomWidth:2,
       borderBottomColor:"grey",
       height:50,
-      flexDirection:"row"
+			flexDirection:"row",
+			marginRight:10,
+			marginLeft:10
     },
     TextTasks:{
       fontSize:20

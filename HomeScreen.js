@@ -1,20 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet,Button,Text,TouchableOpacity,Image,TextInput,ScrollView, KeyboardAvoidView,View } from 'react-native';
+import { StyleSheet,Button,Text,TouchableOpacity,Image,TextInput,ScrollView,KeyboardAvoidingView, KeyboardAvoidView,View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import {useState} from "react";
 import Modal from 'react-native-modal';
 import SearchBar from './HomeScreenComponent/SearchBar';
 import styles from './Style';
-import { Dimensions } from 'react-native';
-import AddTasks from './HomeScreenComponent/Addtask';
-import Tasks from './HomeScreenComponent/Task';
 import Task from './HomeScreenComponent/Task';
 import { MaterialIcons } from '@expo/vector-icons'; 
-
-
-const BLUE= "#7384f0";
-const LIGHT_GREY="#428AF8"
+import ModalPerso from './Modal'
+import { add } from 'react-native-reanimated';
+import {ListStore} from './TaskStore'
 
 const Buttons = (props)=>{
   return(
@@ -29,87 +26,52 @@ const Buttons = (props)=>{
   )
 }
 
-export default function HommeScreen(props) {
-	const [isFocused, setisFocused] = useState(false);
+export default function HommeScreen({navigation:{navigate}}) {
   const [list, setList] = useState([]);
 	const [taskName,settaskName] = useState("");
 	const [taskDescription, settaskDescription] = useState("");
 	const [taskPriority, settaskPriority] = useState("");
 	const [taskstatus, settaskstatus] = useState("en cours");
-	const [isChecked, setisChecked] = useState(true);
-
+	const [ischecked, setischecked] = useState(false);
 	const [showModal, setShowModal] = useState(false);
+	const inputRef = React.useRef()
+	const [Refresh, setRefresh] = useState(false);
 
-  const addItem = () => {
+	React.useEffect(() => {
+    setTimeout(() => {
+			setRefresh(!Refresh);
+			console.log("dsqdqsd") // forces a rerender
+    }, 1000);
+  }, [updateVal]);
 
-	 var obj={taskName,taskDescription,taskPriority,taskstatus,isChecked};
-    const tmp = [...list,obj];
+  function add() {
+		ListStore.addTodo(taskName,taskDescription,taskPriority,taskstatus)
+		var obj=ListStore.getList
+		const tmp = [...list,obj];
 		setList(tmp);
-		settaskName('');
+		settaskName('')
+		settaskPriority('')
 		settaskDescription('')
-		console.log(list)
-	};
-	const handlefocus = (event) =>{
-		setisFocused({isFocused:true})
-		if(props.onFocus){
-			props.onFocus(event);
 	}
-}
-const deleteItem = (index) => {
-	const tmp = [...list];
-	tmp.splice(index, 1);
-	setList(tmp);
-};
-const handlePriority=()=>{
 
-}
+	function deletetask(todo) {
+		ListStore.removeTodo(todo)
+		var obj=ListStore.getList
+		const tmp = [...list,obj];
+		setList(tmp);
+	}
+	function completed(todo){
+		ListStore.toggleTodo(todo)
+		setischecked(true)
+		console.log(ListStore.list)
+	}
 	const handlebutton=()=>{
 		setShowModal(!showModal);
 }
   return (
-<View style={{ flex:1 }}>
-	<Modal 
-		onBackButtonPress={() =>handlebutton()}
-		isVisible={showModal}
-		transparent={true}
-  >
-		<View style={{ backgroundColor:"white",height:400,marginTop:300,padding:40,borderRadius:50}}>
-			<TextInput   
-				style={{height: 40,width:300}}	
-				selectionColor={isFocused ? BLUE : LIGHT_GREY} 
-				underlineColorAndroid={"#D3D3D3"} 
-				placeholder="Nom tâches:" 
-				value={taskName}
-				onChangeText={taskName=>settaskName(taskName)} 
-				>
-			</TextInput>
-			<TextInput   
-			style={{height: 40,width:300}}
-			value={taskDescription}
-			selectionColor={isFocused ? BLUE : LIGHT_GREY} 
-			underlineColorAndroid={"#D3D3D3"} 
-			placeholder="Description de la tâches:" 
-			onChangeText= {taskDescription=>settaskDescription(taskDescription)} 
-			>
-			</TextInput>
-					<Text>Priorité:</Text>
-				<View style={{flex:1,flexDirection:"row"}}>
-			<TouchableOpacity  onPress={()=>settaskPriority("faible")}>
-			<MaterialIcons name="flag" size={36} color="blue" />
-					</TouchableOpacity>
-					<TouchableOpacity onPress={()=>settaskPriority("moyen")} >
-			<MaterialIcons name="flag" size={36} color="orange" />
-					</TouchableOpacity>
-					<TouchableOpacity  onPress={()=>settaskPriority("haute")} >
-			<MaterialIcons name="flag" size={36} color="red" />
-					</TouchableOpacity >
-					</View>
-					<TouchableOpacity style={{height:30,width:100,borderColor:BLUE,borderWidth:2,borderRadius:50,justifyContent:"center"}}
-				onPress={()=>addItem()}>
-				<Text> Créer la tâche</Text>
-			</TouchableOpacity>
-		</View>
-	</Modal>
+<View 
+			style={{ flex:1 }}>
+<ModalPerso  showModal={showModal} handlebutton={handlebutton} taskName={taskName} settaskName={settaskName} taskDescription={taskDescription} settaskDescription={settaskDescription} settaskPriority={settaskPriority} addItem={add}  ></ModalPerso>
     <View style={{ flex: 1, marginTop:50}}>
       <View style={{flexDirection:"row"  }}>
         <SearchBar/>
@@ -117,15 +79,12 @@ const handlePriority=()=>{
       <View>
         <Text style={ styles.title }> Tâche à faire:</Text>
       </View>
-			{list.length ? (
+			{ListStore.list.length ? (
         <ScrollView>
           <View>
-					{list.map((item,index) => (
-						<View>
-							{console.log(item)}
-      <Task ischecked={isChecked}  setischecked={()=>setisChecked(!!isChecked)} ondelete={()=>deleteItem(index)} key={index} text={item.taskName}></Task>
-				</View>
-    ))}
+					{ListStore.list.filter(t=>t.completed==false).slice(0).reverse().map((todo,index)=>{
+    					return <Task key={index} ondelete={()=>deletetask(todo)} completed={()=>completed(todo)}  description={todo.description} text={todo.title}></Task>	
+   		})}
       
           </View>
         </ScrollView>
