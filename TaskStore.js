@@ -1,5 +1,6 @@
 import { makeObservable, observable, computed, action } from "mobx"
 import { TouchableHighlightBase } from "react-native"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Store {
 		list=[]
@@ -15,7 +16,6 @@ class Store {
 						removeTodo:action,
 						getTaskTodo:computed
         })
-    
     }
 
 		addTodo(title,description,priorite,status){

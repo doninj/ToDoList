@@ -12,6 +12,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import ModalPerso from './Modal'
 import { add } from 'react-native-reanimated';
 import {ListStore} from './TaskStore'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ListRounded } from '@material-ui/icons';
 
 const Buttons = (props)=>{
   return(
@@ -36,15 +38,31 @@ export default function HommeScreen({navigation:{navigate}}) {
 	const [showModal, setShowModal] = useState(false);
 	const inputRef = React.useRef()
 	const [Refresh, setRefresh] = useState(false);
+	const [search, setsearch] = useState("");
 
+	const getData = async () => {
+		try {
+			const jsonValue = await AsyncStorage.getItem('name')
+			console.log(jsonValue);
+			return jsonValue != null ? ListStore.list=JSON.parse(jsonValue) : null;
+		} catch(e) {
+			// error reading value
+		}
+	}
+	
 	React.useEffect(() => {
+
     setTimeout(() => {
 			setRefresh(!Refresh);
-			console.log("dsqdqsd") // forces a rerender
     }, 1000);
-  }, [updateVal]);
+  }, [Refresh]);
 
-  function add() {
+	React.useEffect(() => {
+			getData()
+  }, []);
+
+
+  async function add() {
 		ListStore.addTodo(taskName,taskDescription,taskPriority,taskstatus)
 		var obj=ListStore.getList
 		const tmp = [...list,obj];
@@ -52,18 +70,28 @@ export default function HommeScreen({navigation:{navigate}}) {
 		settaskName('')
 		settaskPriority('')
 		settaskDescription('')
+		storeData()
 	}
-
+	const storeData = async () => {
+		try {
+			await AsyncStorage.setItem('name', JSON.stringify(ListStore.list))
+			console.log("mis en sauvegarde")
+		} catch (e) {
+			console.log(ListStore.list)
+	console.log(e)  }
+	}
 	function deletetask(todo) {
 		ListStore.removeTodo(todo)
 		var obj=ListStore.getList
 		const tmp = [...list,obj];
 		setList(tmp);
+		storeData()
 	}
 	function completed(todo){
 		ListStore.toggleTodo(todo)
 		setischecked(true)
 		console.log(ListStore.list)
+		storeData()
 	}
 	const handlebutton=()=>{
 		setShowModal(!showModal);
@@ -74,7 +102,7 @@ export default function HommeScreen({navigation:{navigate}}) {
 <ModalPerso  showModal={showModal} handlebutton={handlebutton} taskName={taskName} settaskName={settaskName} taskDescription={taskDescription} settaskDescription={settaskDescription} settaskPriority={settaskPriority} addItem={add}  ></ModalPerso>
     <View style={{ flex: 1, marginTop:50}}>
       <View style={{flexDirection:"row"  }}>
-        <SearchBar/>
+        <SearchBar settext={search=>setsearch(search)}/>
       </View>
       <View>
         <Text style={ styles.title }> Tâche à faire:</Text>
@@ -82,7 +110,7 @@ export default function HommeScreen({navigation:{navigate}}) {
 			{ListStore.list.length ? (
         <ScrollView>
           <View>
-					{ListStore.list.filter(t=>t.completed==false).slice(0).reverse().map((todo,index)=>{
+					{ListStore.list.filter(t=>  t.completed==false && t.title.includes(search) ).slice(0).reverse().map((todo,index)=>{
     					return <Task key={index} ondelete={()=>deletetask(todo)} completed={()=>completed(todo)}  description={todo.description} text={todo.title}></Task>	
    		})}
       
@@ -100,7 +128,6 @@ export default function HommeScreen({navigation:{navigate}}) {
         </ScrollView>
     </View>
 </View>
-    
   );
 }
 

@@ -12,7 +12,7 @@ import {
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './HomeScreen';
 import FinishTaskScreen from './FinishTaskScreen';
-import {ListStore} from './store'
+import {ListStore} from './TaskStore'
 
 
 

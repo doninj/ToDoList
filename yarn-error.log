@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add mobx
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @react-native-async-storage/async-storage
 
 PATH: 
   C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\Program Files\Common Files\Microsoft Shared\Microsoft Online Services;C:\Program Files (x86)\Common Files\Microsoft Shared\Microsoft Online Services;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Razer\ChromaBroadcast\bin;C:\Program Files\Razer\ChromaBroadcast\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Symfony;C:\Program Files\Git\cmd;C:\wamp64\bin\php\php7.3.5;C:\ProgramData\ComposerSetup\bin;C:\Program Files (x86)\Yarn\bin\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\GTK2-Runtime\bin;C:\Windows\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;C:\HashiCorp\Vagrant\bin;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\nodejs\;C:\Users\jean-\.windows-build-tools\python27\;C:\Users\jean-\.windows-build-tools\python27\;C:\Users\jean-\.windows-build-tools\python27\;C:\Users\jean-\.windows-build-tools\python27\;C:\Users\jean-\AppData\Local\Microsoft\WindowsApps;C:\Users\jean-\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\jean-\AppData\Roaming\Composer\vendor\bin;C:\Users\jean-\AppData\Local\Yarn\bin;C:\libjpeg-turbo64\bin;C:\Program Files (x86)\FreeArc\bin;C:\wamp64\bin\php\php7.3.5;C:\wamp64\bin\php\php7.4.10;C:\xampp\php;C:\Users\jean-\AppData\Local\GitHubDesktop\bin;C:\Users\jean-\AppData\Roaming\npm
@@ -37,6 +37,8 @@ npm manifest:
       "@react-navigation/stack": "^5.12.8",
       "expo": "~39.0.2",
       "expo-status-bar": "~1.0.2",
+      "mobx": "^6.0.4",
+      "mobx-react": "^7.0.5",
       "react": "16.13.1",
       "react-dom": "16.13.1",
       "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
@@ -46,7 +48,9 @@ npm manifest:
       "react-native-reanimated": "^1.13.2",
       "react-native-screens": "^2.15.0",
       "react-native-web": "~0.13.12",
-      "react-navigation-stack": "^2.10.2"
+      "react-navigation-stack": "^2.10.2",
+      "rn-keyboard-sticky-view": "^1.0.4",
+      "rn-round-checkbox": "^1.0.0"
     },
     "devDependencies": {
       "@babel/core": "~7.9.0"

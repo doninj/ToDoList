@@ -5,7 +5,7 @@ import { StyleSheet,Button,Text,TouchableOpacity,Image,TextInput, View } from 'r
 import { useNavigation } from '@react-navigation/native';
 import styles from '../Style'
 
-const SearchBar=({route,title,description,image})=>{
+const SearchBar=(props)=>{
      
     const navigation=useNavigation();
     return (
@@ -15,6 +15,7 @@ const SearchBar=({route,title,description,image})=>{
         <Image source={require('../Icon/Hamburger_icon.png')} style={styles.ImageStyle} />
         </TouchableOpacity>
         <TextInput
+						onChangeText={props.settext}
               style={{flex:1}}
               placeholder="Rechercher votre tâche"
               underlineColorAndroid="transparent"
