@@ -52,6 +52,10 @@ class Store {
 		{
 			this.list= this.list.map(t=>t===todo ? {...t,completed}:t)
 		}
+		toggleFinish(todo,completed=false)
+		{
+			this.list= this.list.map(t=>t===todo ? {...t,completed}:t)
+		}
 		
 }
 const ListStore= new Store();

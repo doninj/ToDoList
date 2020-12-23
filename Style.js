@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
 			marginLeft:10
     },
     TextTasks:{
-      fontSize:20
+			fontSize:20
+			
     },
     priority:{
       backgroundColor:"blue",
@@ -28,7 +29,6 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       borderRadius:50,
       marginRight:30
-      
 
     },
     SectionStyle: {

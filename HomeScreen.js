@@ -32,7 +32,7 @@ export default function HommeScreen({navigation:{navigate}}) {
   const [list, setList] = useState([]);
 	const [taskName,settaskName] = useState("");
 	const [taskDescription, settaskDescription] = useState("");
-	const [taskPriority, settaskPriority] = useState("");
+	const [taskPriority, settaskPriority] = useState("0");
 	const [taskstatus, settaskstatus] = useState("en cours");
 	const [ischecked, setischecked] = useState(false);
 	const [showModal, setShowModal] = useState(false);
@@ -89,19 +89,30 @@ export default function HommeScreen({navigation:{navigate}}) {
 	}
 	function completed(todo){
 		ListStore.toggleTodo(todo)
-		setischecked(true)
+		setischecked(!ischecked)
 		console.log(ListStore.list)
 		storeData()
 	}
 	const handlebutton=()=>{
 		setShowModal(!showModal);
 }
+
+function compare( a, b ) {
+  if ( a.priorite < b.priorite ){
+    return 1;
+  }
+  if ( a.priorite > b.priorite ){
+    return -1;
+  }
+  return 0;
+}
+
   return (
 <View 
 			style={{ flex:1 }}>
-<ModalPerso  showModal={showModal} handlebutton={handlebutton} taskName={taskName} settaskName={settaskName} taskDescription={taskDescription} settaskDescription={settaskDescription} settaskPriority={settaskPriority} addItem={add}  ></ModalPerso>
+<ModalPerso  showModal={showModal} handlebutton={handlebutton}   taskName={taskName} settaskName={settaskName} taskDescription={taskDescription} settaskDescription={settaskDescription} settaskPriority={settaskPriority} addItem={add}  ></ModalPerso>
     <View style={{ flex: 1, marginTop:50}}>
-      <View style={{flexDirection:"row"  }}>
+      <View style={{flexDirection:"row"}}>
         <SearchBar settext={search=>setsearch(search)}/>
       </View>
       <View>
@@ -110,8 +121,8 @@ export default function HommeScreen({navigation:{navigate}}) {
 			{ListStore.list.length ? (
         <ScrollView>
           <View>
-					{ListStore.list.filter(t=>  t.completed==false && t.title.includes(search) ).slice(0).reverse().map((todo,index)=>{
-    					return <Task key={index} ondelete={()=>deletetask(todo)} completed={()=>completed(todo)}  description={todo.description} text={todo.title}></Task>	
+					{ListStore.list.filter(t=>t.completed==false && t.title.includes(search)).sort(compare).map((todo,index)=>{
+    					return <Task key={index}  ondelete={()=>deletetask(todo)} completed={()=>completed(todo)} taskcompleted={todo.completed.toString()}  priority={todo.priorite} description={todo.description} text={todo.title}></Task>	
    		})}
       
           </View>

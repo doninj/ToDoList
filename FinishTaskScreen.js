@@ -16,6 +16,8 @@ import {ListStore} from './TaskStore'
 import {toJS} from 'mobx';
 import ModalPerso from './Modal'
 import { AppState } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const BLUE= "#7384f0";
 const LIGHT_GREY="#428AF8"
@@ -42,6 +44,7 @@ export default function FinishTaskScreen({ navigation, route }) {
 	const [taskstatus, settaskstatus] = useState("en cours");
 	const [isChecked, setisChecked] = useState(true);
 	const [showModal, setShowModal] = useState(false);
+	const [search, setsearch] = useState("");
 
 	const [updateVal, setUpdateVal] = useState(false);
   const forceUpdate = newState => {
@@ -60,6 +63,21 @@ function deletetask(todo) {
 	var obj=ListStore.getList
 	const tmp = [...list,obj];
 	setList(tmp);
+	storeData()
+}
+const storeData = async () => {
+	try {
+		await AsyncStorage.setItem('name', JSON.stringify(ListStore.list))
+		console.log("mis en sauvegarde")
+	} catch (e) {
+		console.log(ListStore.list)
+console.log(e)  }
+}
+function completed(todo){
+	ListStore.toggleFinish(todo)
+	setisChecked(!isChecked)
+	console.log(ListStore.list)
+	storeData()
 }
  function add() {
 	ListStore.addTodo(taskName,taskDescription,taskPriority,taskstatus)
@@ -80,19 +98,28 @@ function deletetask(todo) {
 const handlebutton=()=>{
 	setShowModal(!showModal);
 }
-console.log("salulut"+ ListStore.list.length)
+function compare( a, b ) {
+  if ( a.priorite < b.priorite ){
+    return 1;
+  }
+  if ( a.priorite > b.priorite ){
+    return -1;
+  }
+  return 0;
+}
 return (
+	
 <View style={{ flex:1 }}>
-<ModalPerso showModal={showModal} handlebutton={handlebutton} taskName={taskName} settaskName={settaskName} taskDescription={taskDescription} settaskDescription={settaskDescription} settaskPriority={settaskPriority} addItem={add}  ></ModalPerso>
+<ModalPerso showModal={showModal} handlebutton={handlebutton} priorite={taskPriority} taskName={taskName} settaskName={settaskName} taskDescription={taskDescription} settaskDescription={settaskDescription} settaskPriority={settaskPriority} addItem={add}  ></ModalPerso>
 <View style={{ flex: 1, marginTop:50}}>
 <View style={{flexDirection:"row"  }}>
-        <SearchBar/>
-      </View>
+<SearchBar settext={search=>setsearch(search)}/>      
+</View>
 			<View>
         <Text style={ styles.title }> Tâche Terminée:</Text>
       </View>
-	{ ListStore.getTaskFinished.slice(0).reverse().map((todo,index)=>{
-		return <Task key={index} ondelete={()=>deletetask(todo)}  text={todo.title}></Task>
+	{ ListStore.list.filter(t=>t.completed==true && t.title.includes(search)).sort(compare).map((todo,index)=>{
+		return <Task key={index} completed={()=>completed(todo)} taskcompleted={todo.completed.toString()} priority={todo.priorite}  ondelete={()=>deletetask(todo)}  text={todo.title}></Task>
 	})}
 </View>
 </View>
