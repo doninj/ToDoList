@@ -116,7 +116,7 @@ return (
 <SearchBar settext={search=>setsearch(search)}/>      
 </View>
 			<View>
-        <Text style={ styles.title }> Tâche Terminée:</Text>
+        <Text style={ styles.title }> Tâches Terminées:</Text>
       </View>
 	{ ListStore.list.filter(t=>t.completed==true && t.title.includes(search)).sort(compare).map((todo,index)=>{
 		return <Task key={index} completed={()=>completed(todo)} taskcompleted={todo.completed.toString()} priority={todo.priorite}  ondelete={()=>deletetask(todo)}  text={todo.title}></Task>

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet,Button,Text,TouchableOpacity,CheckBox,Image,TextInput, View } from 'react-native';
+import { StyleSheet,Button,Text,TouchableOpacity,Image,TextInput, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from '../Style';
 import { MaterialIcons } from '@expo/vector-icons'; 
@@ -21,6 +21,7 @@ const Task =(props) =>{
 	const conditionPriority= () =>{
     if (props.priority==0) {
 			return <View></View>
+
 		}
 		if (props.priority==1) {
 			return <MaterialIcons name="flag" size={24} color="blue" />
@@ -52,10 +53,10 @@ const conditionCheckbox= (completed) =>{
 				<TouchableOpacity style={{ width:300 }} onPress={handlebutton}>
           <Text style={styles.TextTasks }> {props.text}</Text>
 					</TouchableOpacity>
-					<View style={{paddingRight:15 }}>
+					<View style={{width:30,paddingRight:5}} >
 					{conditionPriority()}
 					</View>
-          <TouchableOpacity onPress={props.ondelete}>
+          <TouchableOpacity style={{paddingLeft:10}} onPress={props.ondelete}>
 					<MaterialIcons name="delete" size={24} color="black" />
         </TouchableOpacity>
           </View>

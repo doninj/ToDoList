@@ -116,7 +116,7 @@ function compare( a, b ) {
         <SearchBar settext={search=>setsearch(search)}/>
       </View>
       <View>
-        <Text style={ styles.title }> Tâche à faire:</Text>
+        <Text style={ styles.title }> Tâches à faires:</Text>
       </View>
 			{ListStore.list.length ? (
         <ScrollView>
