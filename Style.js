@@ -73,7 +73,8 @@ checkbox: {
       alignItems: 'center'
   },
   title:{
-    fontSize:35,
+    fontSize:35, 
+    borderBottomWidth:1
 	},
 
   

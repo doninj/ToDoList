@@ -106,10 +106,9 @@ function compare( a, b ) {
   }
   return 0;
 }
-
   return (
 <View 
-			style={{ flex:1 }}>
+	style={{ flex:1 }}>
 <ModalPerso  showModal={showModal} handlebutton={handlebutton}   taskName={taskName} settaskName={settaskName} taskDescription={taskDescription} settaskDescription={settaskDescription} settaskPriority={settaskPriority} addItem={add}  ></ModalPerso>
     <View style={{ flex: 1, marginTop:50}}>
       <View style={{flexDirection:"row"}}>
@@ -121,8 +120,8 @@ function compare( a, b ) {
 			{ListStore.list.length ? (
         <ScrollView>
           <View>
-					{ListStore.list.filter(t=>t.completed==false && t.title.includes(search)).sort(compare).map((todo,index)=>{
-    					return <Task key={index}  ondelete={()=>deletetask(todo)} completed={()=>completed(todo)} taskcompleted={todo.completed.toString()}  priority={todo.priorite} description={todo.description} text={todo.title}></Task>	
+			{ListStore.list.filter(t=>t.completed==false && t.title.includes(search)).sort(compare).map((todo,index)=>{
+    		return <Task key={index}  ondelete={()=>deletetask(todo)} completed={()=>completed(todo)} taskcompleted={todo.completed.toString()}  priority={todo.priorite} description={todo.description} text={todo.title}></Task>	
    		})}
       
           </View>
