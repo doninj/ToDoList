@@ -31,6 +31,7 @@ Dans la page de tâche à faire, il est possible:
 * _Regarder le contenu de la tâche en cliquant dessus._
 * _supprimer la tâche que l'on veut avec l'icon de la poubelle._
 * _Cocher la tâche pour la mettre dans la section terminer._
+* _Retrouver vos tâches lorsque que l'application est éteinte avec un stockage des données._
 
 Pour ajouter une tâche, appuyer sur le bouton +. Cela va afficher un modal qui va permettre d'ajouter une tâche.
 ### Page tâche terminer:
