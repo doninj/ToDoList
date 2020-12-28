@@ -13,6 +13,7 @@ Cette application mobile permet de se faire une liste de tâche adéquate à vot
 ## Fonctionnement de l'application:
 
 Dans cette application: nous avons deux sections: tâches à faire et tâche terminer. 
+
 <img src="./imagesDocumentation/menu.jpg" height="300px">
 
 ### Page tâche à faire:
