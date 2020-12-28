@@ -1,6 +1,8 @@
 # Application Mobile TodoList
 Cette application mobile permet de se faire une liste de tâche adéquate à votre besoin.
 <img src="./imagesDocumentation/liste_tâches.jpg" height="100px">
+
+![](imagesDocumentation/liste_tâches.jpg | width=100)
 ## Installation de l'application:
 
 * Allez sur le github: https://github.com/doninj/ToDoList
