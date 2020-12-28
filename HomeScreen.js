@@ -14,19 +14,10 @@ import { add } from 'react-native-reanimated';
 import {ListStore} from './TaskStore'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ListRounded } from '@material-ui/icons';
+import { FontAwesome } from '@expo/vector-icons'; 
+import AddTasks from './HomeScreenComponent/Addtask';
 
-const Buttons = (props)=>{
-  return(
-  <View style={styles.container}>
-    <View style={styles.SectionStyleAdd}>
-      <TouchableOpacity onPress={props.press}  style={{flexDirection:"row",justifyContent:"center",alignItems:"center",width:200}} >
-        <Image source={require('./Icon/add.png')} style={styles.ImageStyle} />
-    		<Text> Créer une tâche</Text>
-    	</TouchableOpacity>
-    </View>
-		</View>
-  )
-}
+
 
 export default function HommeScreen({navigation:{navigate}}) {
   const [list, setList] = useState([]);
@@ -114,9 +105,10 @@ function compare( a, b ) {
       <View style={{flexDirection:"row"}}>
         <SearchBar settext={search=>setsearch(search)}/>
       </View>
-      <View>
-        <Text style={ styles.title }> Tâches à faires:</Text>
-      </View>
+			<View style={{ paddingLeft:"2%",flexDirection:"row",alignItems:'center' }}>
+	<FontAwesome style={{paddingRight:5}}name="tasks" size={20} color="#F9AA33" />
+	<Text style={{ fontSize:30,fontWeight:'bold'}}>Tâches à faires  </Text>
+	</View>
 			{ListStore.list.length ? (
         <ScrollView>
           <View>
@@ -134,7 +126,7 @@ function compare( a, b ) {
         <View style={{ marginTop:15 }}>
         </View>
         <ScrollView style={{ position:"absolute",bottom:0,right:0,marginBottom:30,marginRight:25}}>
-        <Buttons press={handlebutton}></Buttons>
+        <AddTasks press={handlebutton}></AddTasks>
         </ScrollView>
     </View>
 </View>

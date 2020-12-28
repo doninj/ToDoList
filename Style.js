@@ -1,5 +1,4 @@
 import { StyleSheet} from 'react-native';
-import { withTheme } from 'react-native-elements';
 
 
 const styles = StyleSheet.create({
@@ -11,16 +10,23 @@ const styles = StyleSheet.create({
       margin: 10
     },
     task:{
-      borderBottomWidth:2,
-      borderBottomColor:"grey",
+			backgroundColor:"white",
+			shadowColor: "#000",
+			shadowOffset: {
+				width: 0,
+				height: 2,
+			},
+			width:"100%",
+			shadowOpacity: 0.25,
+			shadowRadius: 3.84,
+			borderRadius:5,
+			elevation: 6,
+			marginBottom:5,
       height:50,
 			flexDirection:"row",
-			marginRight:10,
-			marginLeft:10
     },
     TextTasks:{
 			fontSize:20
-			
     },
     priority:{
       backgroundColor:"blue",
@@ -31,31 +37,6 @@ const styles = StyleSheet.create({
       marginRight:30
 
     },
-    SectionStyle: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#fff',
-      borderWidth: .5,
-      borderColor: '#000',
-      height: 40,
-      borderRadius: 5 ,
-      elevation:10,
-      margin: 10
-  },
-  SectionStyleAdd: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderWidth: .5,
-    borderColor: '#000',
-    height: 40,
-    borderRadius: 20 ,
-    margin: 10,
-    elevation:6,
-    shadowColor:"black"
-},
 checkboxContainer: {
 	flexDirection: "row",
 	marginBottom: 20,
@@ -63,20 +44,5 @@ checkboxContainer: {
 checkbox: {
 	alignSelf: "center",
 },
-  
-  ImageStyle: {
-      padding: 10,
-      margin: 5,
-      height: 25,
-      width: 25,
-      resizeMode : 'stretch',
-      alignItems: 'center'
-  },
-  title:{
-    fontSize:35, 
-    borderBottomWidth:1
-	},
-
-  
   });
   export default styles;

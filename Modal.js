@@ -25,6 +25,7 @@ transparent={true}
 		placeholder="Nom tâches:" 
 		value={props.taskName}
 		onChangeText={taskName=>props.settaskName(taskName)} 
+		maxLength={25}
 		>
 	</TextInput>
 	<TextInput   
@@ -32,6 +33,7 @@ transparent={true}
 	value={props.taskDescription}
 	underlineColorAndroid={"#D3D3D3"} 
 	placeholder="Description de la tâches:" 
+	
 	onChangeText= {taskDescription=>props.settaskDescription(taskDescription)} 
 	>
 	</TextInput>

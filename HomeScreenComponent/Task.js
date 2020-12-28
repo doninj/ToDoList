@@ -37,7 +37,7 @@ const Task =(props) =>{
 const conditionCheckbox= (completed) =>{
 		
 	if (completed=="false") {
-		return <MaterialCommunityIcons style={{paddingRight:5}} name="checkbox-blank-circle-outline" size={24} color="black" />
+		return <MaterialCommunityIcons style={{paddingRight:5,paddingLeft:5}} name="checkbox-blank-circle-outline" size={24} color="black" />
 	}
 	else{
 	 return	<MaterialCommunityIcons name="checkbox-marked-circle-outline" size={24} color="black" />

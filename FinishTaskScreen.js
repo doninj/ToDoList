@@ -17,23 +17,13 @@ import {toJS} from 'mobx';
 import ModalPerso from './Modal'
 import { AppState } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 
 const BLUE= "#7384f0";
 const LIGHT_GREY="#428AF8"
 
-const Buttons = (props)=>{
-  return(
-  <View style={styles.container}>
-    <View style={styles.SectionStyleAdd}>
-      <TouchableOpacity onPress={props.press}  style={{flexDirection:"row",justifyContent:"center",alignItems:"center",width:200}} >
-        <Image source={require('./Icon/add.png')} style={styles.ImageStyle} />
-    		<Text> Créer une tâche</Text>
-    	</TouchableOpacity>
-    </View>
-		</View>
-  )
-}
+
 
 export default function FinishTaskScreen({ navigation, route }) {
 
@@ -115,9 +105,10 @@ return (
 <View style={{flexDirection:"row"  }}>
 <SearchBar settext={search=>setsearch(search)}/>      
 </View>
-			<View>
-        <Text style={ styles.title }> Tâches Terminées:</Text>
-      </View>
+<View style={{ paddingLeft:"2%",flexDirection:"row",alignItems:'center' }}>
+<MaterialCommunityIcons name="checkbox-marked-circle" size={20} color="#F9AA33" />
+	<Text style={{ fontSize:30,fontWeight:'bold'}}>Tâches Terminées  </Text>
+	</View>
 	{ ListStore.list.filter(t=>t.completed==true && t.title.includes(search)).sort(compare).map((todo,index)=>{
 		return <Task key={index} completed={()=>completed(todo)} taskcompleted={todo.completed.toString()} priority={todo.priorite}  ondelete={()=>deletetask(todo)}  text={todo.title}></Task>
 	})}
@@ -125,4 +116,11 @@ return (
 </View>
   );
 }
+const stylesFinish = StyleSheet.create({
+  
+  title:{
+		fontSize:30,
+		fontWeight:'bold'
+	}
+});
 

@@ -37,20 +37,20 @@ const ButtonsDeleteorFinish= (completed) =>{
     
 	if (completed=="false") {
 		return 	<View style={{ bottom:0,position:"absolute",width:"100%",flexDirection:"row" }}>
-			<TouchableOpacity onPress={props.delete} style={{ width:'50%',borderWidth:1 ,justifyContent:"center",height:60,alignItems:'center',flexDirection:"row"}}>
-		<MaterialIcons name="delete" size={24} color="black" />
-		<Text style={{ fontSize:20 }}>Supprimer la tâche</Text>
+			<TouchableOpacity onPress={props.delete} style={{ backgroundColor: '#4A6572',width:'50%',borderWidth:1 ,justifyContent:"center",height:60,alignItems:'center',flexDirection:"row"}}>
+		<MaterialIcons name="delete" size={24} color="#F9AA33" />
+		<Text style={{ fontSize:20,color:"#F9AA33" }}>Supprimer la tâche</Text>
 		</TouchableOpacity>
-		<TouchableOpacity onPress={props.taskfinish} style={{ width:'50%',borderWidth:1 ,justifyContent:"center",height:60,alignItems:'center',flexDirection:"row"}}>
-		<MaterialCommunityIcons name="checkbox-marked-circle" size={24} color="black" />		
-			<Text style={{  fontSize:20  }}>Terminer tâche</Text>
+		<TouchableOpacity onPress={props.taskfinish} style={{ elevation:50,backgroundColor: '#4A6572',width:'50%',borderWidth:1 ,justifyContent:"center",height:60,alignItems:'center',flexDirection:"row"}}>
+		<MaterialCommunityIcons name="checkbox-marked-circle" size={24} color="#F9AA33" />		
+			<Text style={{  fontSize:20,color:"#F9AA33"  }}>Terminer tâche</Text>
 		</TouchableOpacity>
 		</View>
 	}
 	else{
 	 return	<View style={{ bottom:0,position:"absolute",width:"100%",flexDirection:"row" }}>
 		 <TouchableOpacity onPress={props.delete} style={{ width:'100%',borderWidth:1 ,justifyContent:"center",height:60,alignItems:'center',flexDirection:"row"}}>
-	 <MaterialIcons name="delete" size={24} color="black" />
+	 <MaterialIcons name="delete" size={24} color="#F9AA33" />
 	 <Text style={{ fontSize:20 }}>Supprimer la tâche</Text>
 	 </TouchableOpacity>
 	 </View>
@@ -65,7 +65,7 @@ transparent={true}
 <View style={{ height:'40%',backgroundColor:"white",borderTopRightRadius:50,borderTopLeftRadius:50}}>
 	<View style={{ marginTop:20,marginLeft:20 }}>
 	<View style={{ flexDirection:"row",alignItems:'center' }}>
-	<FontAwesome style={{paddingRight:5}}name="tasks" size={20} color="blue" />
+	<FontAwesome style={{paddingRight:5}}name="tasks" size={20} color="#F9AA33" />
 	<Text style={{ fontSize:30,fontWeight:'bold'}}>Détails de la tâche  </Text>
 	</View>
 	<View style={{ flexDirection:"row",alignItems:'center' }}>
