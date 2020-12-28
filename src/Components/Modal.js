@@ -12,11 +12,11 @@ const ModalPerso =(props)=>{
 
 	}, []);
 	return(
-<Modal 
-onBackButtonPress={() =>props.handlebutton()}
-isVisible={props.showModal}
-transparent={true}
->
+	<Modal 
+	onBackButtonPress={() =>props.handlebutton()}
+	isVisible={props.showModal}
+	transparent={true}
+	>
 <View style={{ flexDirection:'column',backgroundColor:"white",height:250,marginTop:200,padding:40,borderRadius:50}}>
 	<View>
 	<TextInput

@@ -11,10 +11,10 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './HomeScreen';
-import FinishTaskScreen from './FinishTaskScreen';
+import HomeScreen from './src/Screen/HomeScreen';
+import FinishTaskScreen from './src/Screen/FinishTaskScreen';
 import {ListStore} from './TaskStore'
-import Loader from './loading'
+import Loader from './src/loading'
 import { FontAwesome } from '@expo/vector-icons'; 
 
 const Stack = createStackNavigator();

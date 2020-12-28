@@ -1,13 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet,Button,Text,TouchableOpacity,Image,TextInput, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import styles from '../Style';
+import styles from '../css/Style';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import ModalUpdate from '../ModalUpdate';
-import RoundCheckbox from 'rn-round-checkbox';
-import Checkbox from '../Checkbox'
+import ModalUpdate from './ModalUpdate';
+
 const Task =(props) =>{
 	const [showModal, setShowModal] = React.useState(false);
 	const [ischecked, setischecked] = React.useState(true);
@@ -21,7 +18,6 @@ const Task =(props) =>{
 	const conditionPriority= () =>{
     if (props.priority==0) {
 			return <View></View>
-
 		}
 		if (props.priority==1) {
 			return <MaterialIcons name="flag" size={24} color="blue" />
