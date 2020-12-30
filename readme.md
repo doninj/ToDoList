@@ -7,7 +7,7 @@ Cette application mobile permet de se faire une liste de tâche adéquate à vot
 
 * Allez sur le github: https://github.com/doninj/ToDoList
 * faite un **git pull** pour récuperer le dossier de l'application.
-* Faites dans le projet:  ``` yarn install && npm install```
+* Faites dans le projet:  ``` yarn install ``
 * Faites un ```yarn android ``` pour lancer le projet.
 
 ## Fonctionnement de l'application:

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ToDoList",
-    "slug": "ToDoList",
+    "name": "ToDoList_Donin_Jb",
+    "slug": "todolist_donin_jb",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }
