@@ -38,7 +38,8 @@ export default function FinishTaskScreen({ navigation, route }) {
 			console.log("mis en sauvegarde")
 		} catch (e) {
 			console.log(ListStore.list)
-	console.log(e)  }
+			console.log(e)  
+		}
 	}
 	function completed(todo){
 		ListStore.toggleFinish(todo)
@@ -48,10 +49,6 @@ export default function FinishTaskScreen({ navigation, route }) {
 	}
 	function add() {
 		ListStore.addTodo(taskName,taskDescription,taskPriority,taskstatus)
-		var obj=ListStore.getList
-		console.log(obj)
-		const tmp = [...list,obj];
-			setList(tmp);
 		settaskName('')
 		settaskPriority('')
 		settaskDescription('')

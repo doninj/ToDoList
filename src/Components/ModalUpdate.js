@@ -39,19 +39,19 @@ const ButtonsDeleteorFinish= (completed) =>{
 		return 	<View style={{ bottom:0,position:"absolute",width:"100%",flexDirection:"row" }}>
 			<TouchableOpacity onPress={props.delete} style={{ backgroundColor: '#4A6572',width:'50%',borderWidth:1 ,justifyContent:"center",height:60,alignItems:'center',flexDirection:"row"}}>
 		<MaterialIcons name="delete" size={24} color="#F9AA33" />
-		<Text style={{ fontSize:20,color:"#F9AA33" }}>Supprimer la tâche</Text>
+		<Text style={styles.text}>Supprimer la tâche  </Text>
 		</TouchableOpacity>
 		<TouchableOpacity onPress={props.taskfinish} style={{ elevation:50,backgroundColor: '#4A6572',width:'50%',borderWidth:1 ,justifyContent:"center",height:60,alignItems:'center',flexDirection:"row"}}>
 		<MaterialCommunityIcons name="checkbox-marked-circle" size={24} color="#F9AA33" />		
-			<Text style={{  fontSize:20,color:"#F9AA33"  }}>Terminer tâche</Text>
+			<Text style={styles.text}>Terminer tâche  </Text>
 		</TouchableOpacity>
 		</View>
 	}
 	else{
 	 return	<View style={{ bottom:0,position:"absolute",width:"100%",flexDirection:"row" }}>
-		 <TouchableOpacity onPress={props.delete} style={{ width:'100%',borderWidth:1 ,justifyContent:"center",height:60,alignItems:'center',flexDirection:"row"}}>
+		 <TouchableOpacity onPress={props.delete} style={{ backgroundColor:'#4A6572',width:'100%',borderWidth:1 ,justifyContent:"center",height:60,alignItems:'center',flexDirection:"row"}}>
 	 <MaterialIcons name="delete" size={24} color="#F9AA33" />
-	 <Text style={{ fontSize:20 }}>Supprimer la tâche</Text>
+	 <Text style={styles.text}>Supprimer la tâche  </Text>
 	 </TouchableOpacity>
 	 </View>
 	}
@@ -72,9 +72,8 @@ transparent={true}
 {conditionCheckbox(props.taskCompleted)}	
 <Text style={{ fontSize:20}}>{props.taskName}  </Text>
 	</View>
-
 	<Text style={{ marginLeft:20,marginTop:20,fontSize:20,fontWeight:'bold'}}>Description de la tâche:  </Text>
-	<Text  style={{}}underlineColorAndroid={"#D3D3D3"}	> {props.taskDescription}
+	<Text  style={{ }}underlineColorAndroid={"#D3D3D3"}	> {props.taskDescription}
 	</Text>
 		{conditionPriority(props.taskPriority)}
 </View>
@@ -85,4 +84,12 @@ transparent={true}
 </Modal>
 	)
 }
+const styles = StyleSheet.create({
+text:{
+	fontSize:18,
+	color:"#F9AA33",
+	fontWeight:'bold'
+}
+
+})
 export default ModalUpdate;
