@@ -12,7 +12,7 @@ Cette application mobile permet de se faire une liste de tâche adéquate à vot
 **Ou** Allez sur : https://expo.io/@doninj/projects/todolist_donin_jb et scanner le qr code. 
 ## Fonctionnement de l'application:
 
-Dans cette application: nous avons deux sections: tâches à faire et tâche terminer. 
+Dans cette application: nous avons deux sections: tâches à faire et tâche terminée. 
 
 <img src="./imagesDocumentation/menu.jpg" height="300px">
 
