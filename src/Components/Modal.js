@@ -17,7 +17,7 @@ const ModalPerso =(props)=>{
 	isVisible={props.showModal}
 	transparent={true}
 	>
-<View style={{ flexDirection:'column',backgroundColor:"white",height:250,marginTop:200,padding:40,borderRadius:50}}>
+<View style={styles.container}>
 	<View>
 	<TextInput
 		style={{height: 40,width:300}}	
@@ -79,7 +79,15 @@ const styles = StyleSheet.create({
     shadowRadius: 16.0,
 
     elevation: 24,
-  },
+	},
+	container:{
+	flexDirection:'column',
+	backgroundColor:"white",
+	height:250,
+	marginTop:200,
+	padding:40,
+	borderRadius:50
+},
   header: {
     borderRadius: 10,
     margin: 5,

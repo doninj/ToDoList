@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet,Button,Text,TouchableOpacity,Image,TextInput,ScrollView, KeyboardAvoidView,View } from 'react-native';
 import Modal from 'react-native-modal';
@@ -36,60 +35,107 @@ const conditionCheckbox= (completed) =>{
 const ButtonsDeleteorFinish= (completed) =>{
     
 	if (completed=="false") {
-		return 	<View style={{ bottom:0,position:"absolute",width:"100%",flexDirection:"row" }}>
-			<TouchableOpacity onPress={props.delete} style={{ backgroundColor: '#4A6572',width:'50%',borderWidth:1 ,justifyContent:"center",height:60,alignItems:'center',flexDirection:"row"}}>
+		return 	<View style={styles.ViewButton}>
+			<TouchableOpacity onPress={props.delete} style={styles.buttondetailstodo}>
 		<MaterialIcons name="delete" size={24} color="#F9AA33" />
-		<Text style={styles.text}>Supprimer la tâche  </Text>
+		<Text style={styles.textButton}>Supprimer la tâche  </Text>
 		</TouchableOpacity>
-		<TouchableOpacity onPress={props.taskfinish} style={{ elevation:50,backgroundColor: '#4A6572',width:'50%',borderWidth:1 ,justifyContent:"center",height:60,alignItems:'center',flexDirection:"row"}}>
+		<TouchableOpacity onPress={props.taskfinish} style={styles.buttondetailstodo}>
 		<MaterialCommunityIcons name="checkbox-marked-circle" size={24} color="#F9AA33" />		
-			<Text style={styles.text}>Terminer tâche  </Text>
+			<Text style={styles.textButton}>Terminer tâche  </Text>
 		</TouchableOpacity>
 		</View>
 	}
 	else{
-	 return	<View style={{ bottom:0,position:"absolute",width:"100%",flexDirection:"row" }}>
-		 <TouchableOpacity onPress={props.delete} style={{ backgroundColor:'#4A6572',width:'100%',borderWidth:1 ,justifyContent:"center",height:60,alignItems:'center',flexDirection:"row"}}>
-	 <MaterialIcons name="delete" size={24} color="#F9AA33" />
-	 <Text style={styles.text}>Supprimer la tâche  </Text>
-	 </TouchableOpacity>
-	 </View>
+	 return	<View style={styles.ViewButton}>
+		 				<TouchableOpacity onPress={props.delete} style={styles.buttondetailsdone}>
+	 					<MaterialIcons name="delete" size={24} color="#F9AA33" />
+						<Text style={styles.textButton}>Supprimer la tâche  </Text>
+						</TouchableOpacity>
+	 				</View>
 	}
 }
 	return(
-<Modal style={{ margin:0,justifyContent:"flex-end"}}
-onBackButtonPress={() =>props.handlebutton()}
-isVisible={props.showModal}
-transparent={true}
->
-<View style={{ height:'40%',backgroundColor:"white",borderTopRightRadius:50,borderTopLeftRadius:50}}>
-	<View style={{ marginTop:20,marginLeft:20 }}>
-	<View style={{ flexDirection:"row",alignItems:'center' }}>
-	<FontAwesome style={{paddingRight:5}}name="tasks" size={20} color="#F9AA33" />
-	<Text style={{ fontSize:30,fontWeight:'bold'}}>Détails de la tâche  </Text>
-	</View>
-	<View style={{ flexDirection:"row",alignItems:'center' }}>
-{conditionCheckbox(props.taskCompleted)}	
-<Text style={{ fontSize:20}}>{props.taskName}  </Text>
-	</View>
-	<Text style={{ marginLeft:20,marginTop:20,fontSize:20,fontWeight:'bold'}}>Description de la tâche:  </Text>
-	<Text  style={{ }}underlineColorAndroid={"#D3D3D3"}	> {props.taskDescription}
-	</Text>
-		{conditionPriority(props.taskPriority)}
-</View>
-		<View style={{ bottom:0,position:"absolute",width:"100%",flexDirection:"row" }}>
-		{ButtonsDeleteorFinish(props.taskCompleted)}
+	<Modal style={{ margin:0,justifyContent:"flex-end"}}
+		onBackButtonPress={() =>props.handlebutton()}
+		isVisible={props.showModal}
+		transparent={true}>
+		<View style={styles.container}>
+			<View style={{ marginTop:20,marginLeft:20 }}>
+				<View style={{ flexDirection:"row",alignItems:'center' }}>
+					<FontAwesome style={{paddingLeft:20,paddingRight:10}}name="tasks" size={20} color="#F9AA33" />
+					<Text style={styles.text}>Détails de la tâche  </Text>
+				</View>
+				<View style={styles.ViewTitreTâche}>
+					{conditionCheckbox(props.taskCompleted)}	
+					<Text style={{ fontSize:20}}>{props.taskName}  </Text>
+				</View>
+				<Text style={styles.TitreDescription}>Description de la tâche:</Text>
+				<Text  style={styles.description}> {props.taskDescription} </Text>
+				{conditionPriority(props.taskPriority)}
+			</View>
+			<View style={styles.ViewButton}>
+				{ButtonsDeleteorFinish(props.taskCompleted)}
+			</View>
 		</View>
-</View>
-</Modal>
+	</Modal>
 	)
 }
 const styles = StyleSheet.create({
 text:{
+	fontSize:20,
+	color:"#F9AA33",
+	fontWeight:'bold'
+},
+textButton:{
 	fontSize:18,
 	color:"#F9AA33",
 	fontWeight:'bold'
+},
+description:{
+	fontSize:18,
+	marginLeft:17,
+	marginTop:10
+},
+ViewTitreTâche:{
+	marginTop:10, 
+	paddingLeft:20,
+	flexDirection:"row",
+	alignItems:'center'
+},
+TitreDescription:{
+	marginLeft:20,
+	marginTop:20,
+	fontSize:20,
+	fontWeight:'bold'
+},
+buttondetailstodo:{
+	backgroundColor: '#4A6572',
+	width:'50%',
+	borderWidth:1 ,
+	justifyContent:"center",
+	height:60,alignItems:'center',
+	flexDirection:"row"
+},
+buttondetailsdone:{
+	backgroundColor:'#4A6572',
+	width:'100%',borderWidth:1 ,
+	justifyContent:"center",height:60,
+	alignItems:'center',
+	flexDirection:"row"
+},
+ViewButton:{
+	 bottom:0,
+		position:"absolute",
+		width:"100%",
+		flexDirection:"row" 
+},
+container:{
+	 height:'40%',
+	backgroundColor:"white",
+	borderTopRightRadius:50,
+	borderTopLeftRadius:50
 }
-
 })
+
 export default ModalUpdate;

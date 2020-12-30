@@ -43,9 +43,6 @@ export default function HommeScreen({navigation:{navigate}}) {
 
   async function add() {
 		ListStore.addTodo(taskName,taskDescription,taskPriority,taskstatus)
-		var obj=ListStore.getList
-		const tmp = [...list,obj];
-		setList(tmp);
 		settaskName('')
 		settaskPriority('')
 		settaskDescription('')
@@ -61,9 +58,6 @@ export default function HommeScreen({navigation:{navigate}}) {
 	}
 	function deletetask(todo) {
 		ListStore.removeTodo(todo)
-		var obj=ListStore.getList
-		const tmp = [...list,obj];
-		setList(tmp);
 		storeData()
 	}
 	function completed(todo){
@@ -75,7 +69,6 @@ export default function HommeScreen({navigation:{navigate}}) {
 	const handlebutton=()=>{
 		setShowModal(!showModal);
 	}
-
 	function compare( a, b ) {
 		if ( a.priorite < b.priorite ){
 			return 1;
@@ -88,36 +81,50 @@ export default function HommeScreen({navigation:{navigate}}) {
   return (
 	<View 
 		style={{ flex:1 }}>
-		<ModalPerso  showModal={showModal} handlebutton={handlebutton}   taskName={taskName} settaskName={settaskName} taskDescription={taskDescription} settaskDescription={settaskDescription} settaskPriority={settaskPriority} addItem={add}  ></ModalPerso>
-			<View style={{ flex: 1, marginTop:50}}>
-				<View style={{flexDirection:"row"}}>
-					<SearchBar settext={search=>setsearch(search)}/>
-				</View>
-			<View style={{ paddingLeft:"2%",flexDirection:"row",alignItems:'center' }}>
-		<FontAwesome style={{paddingRight:5}}name="tasks" size={20} color="#F9AA33" />
-		<Text style={{ fontSize:30,fontWeight:'bold'}}>Tâches à faires  </Text>
-		</View>
-				{ListStore.list.length ? (
-					<ScrollView>
-						<View>
-				{ListStore.list.filter(t=>t.completed==false && t.title.includes(search)).sort(compare).map((todo,index)=>{
-					return <Task key={index}  ondelete={()=>deletetask(todo)} completed={()=>completed(todo)} taskcompleted={todo.completed.toString()}  priority={todo.priorite} description={todo.description} text={todo.title}></Task>	
-				})}
-				
-						</View>
-					</ScrollView>
-					) : (
-						<View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-							<Text>Aucune Tâches</Text>
-						</View>
-					)}
-					<View style={{ marginTop:15 }}>
-					</View>
-					<ScrollView style={{ position:"absolute",bottom:0,right:0,marginBottom:30,marginRight:25}}>
-					<AddTasks press={handlebutton}></AddTasks>
-					</ScrollView>
+		<ModalPerso  showModal={showModal} handlebutton={handlebutton}   taskName={taskName} settaskName={settaskName} taskDescription={taskDescription} settaskDescription={settaskDescription} settaskPriority={settaskPriority} addItem={add}  >
+		</ModalPerso>
+		<View style={{ flex: 1, marginTop:50}}>
+			<View style={{flexDirection:"row"}}>
+				<SearchBar settext={search=>setsearch(search)}/>
 			</View>
+			<View style={{ paddingLeft:"2%",flexDirection:"row",alignItems:'center' }}>
+				<FontAwesome style={{paddingRight:5}}name="tasks" size={20} color="#F9AA33" />
+				<Text style={styles.Titre}>Tâches à faires  </Text>
+			</View>
+			{ListStore.list.length ? (
+				<ScrollView>
+					<View>
+						{ListStore.list.filter(t=>t.completed==false && t.title.includes(search)).sort(compare).map((todo,index)=>{
+							return <Task key={index}  ondelete={()=>deletetask(todo)} completed={()=>completed(todo)} taskcompleted={todo.completed.toString()}  priority={todo.priorite} description={todo.description} text={todo.title}></Task>	
+						})}
+					</View>
+				</ScrollView>
+				) : (
+					<View style={styles.AucuneTâche}>
+						<Text>Aucune Tâches</Text>
+					</View>
+				)}
+				<View style={{ marginTop:15 }}>
+				</View>
+				<ScrollView style={styles.ButtonAdd}>
+					<AddTasks press={handlebutton}></AddTasks>
+				</ScrollView>
+		</View>
 	</View>
   );
 }
+const styles = StyleSheet.create({
+	ButtonAdd:{
+		position:"absolute",bottom:0,right:0,marginBottom:30,marginRight:25
+	},
+	AucuneTâche:{
+		justifyContent: 'center',
+		 alignItems: 'center', 
+		 flex: 1 
+	},
+	Titre:{
+		fontSize:30,
+		fontWeight:'bold'
+	}
+})
 
