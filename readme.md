@@ -9,7 +9,7 @@ Cette application mobile permet de se faire une liste de tâche adéquate à vot
 * faite un **git pull** pour récuperer le dossier de l'application.
 * Faites dans le projet:  ``` yarn install ``
 * Faites un ```yarn android ``` pour lancer le projet.
-
+**Ou** Allez sur : https://expo.io/@doninj/projects/todolist_donin_jb et scanner le qr code. 
 ## Fonctionnement de l'application:
 
 Dans cette application: nous avons deux sections: tâches à faire et tâche terminer. 
